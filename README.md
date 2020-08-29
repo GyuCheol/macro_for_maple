@@ -1,2 +1,7 @@
 # macro_for_maple
-macro program for automating play
+
+## Dependencies
+
+- win32gui
+
+## stubgen pyi stubgen -m win32gui -o ./test

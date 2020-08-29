@@ -1,0 +1,5 @@
+{
+    "python.analysis.extraPaths": [
+        "C:/Users/rbcjf/AppData/Local/Programs/Python/Python37-32/Lib/site-packages/win32"
+    ]
+}

@@ -1,5 +1,5 @@
 # Orange mushroom game
-### `not for playing game, learning AI!`
+### `not for playing game, learning skills!`
 
 ## todo
 - To detect floors

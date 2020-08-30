@@ -13,8 +13,9 @@ args = {
     'install_requires': [
         'pywin32',
         'opencv-python',
-        'numpy',
-        'pillow'
+        'keyboard',
+        'pytorch==1.6+cu101',
+        'torchvision==0.7+cu101'
     ],
     'zip_safe': False
 }

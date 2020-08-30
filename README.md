@@ -1,7 +1,9 @@
-# macro_for_maple
+# Orange mushroom game
+### `not for playing game, learning AI!`
 
-## Dependencies
+## Used technology  
+- Deep Learning to detect object such as monsters, buff skills, droped items etc.
+- windows api to get game screen in realtime.
+- open-cv to handle the screen (also pillow, numpy)
 
-- win32gui
-
-## stubgen pyi stubgen -m win32gui -o ./test
+<img src='./img/result.png' />

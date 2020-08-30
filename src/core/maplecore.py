@@ -43,7 +43,7 @@ class MapleCore:
         self.reward_list.append(icon)
     
     def get_game_screen(self):
-        
+        win32gui.InvalidateRect()
         img = get_hwnd_screen_buffer(self.hWnd, self.scale)
         
         converted = np.array(img)

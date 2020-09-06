@@ -15,7 +15,8 @@ args = {
         'opencv-python',
         'keyboard',
         'pytorch==1.6+cu101',
-        'torchvision==0.7+cu101'
+        'torchvision==0.7+cu101',
+        'mouse'
     ],
     'zip_safe': False
 }

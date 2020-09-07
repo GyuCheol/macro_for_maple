@@ -1,6 +1,11 @@
 # Orange mushroom game
 ### `not for playing game, learning skills!`
 
+## Features
+- Detecting buff icons.
+- Detecting mob images.
+- Detecting such thing as medal or name
+
 ## todo
 - To detect floors
 - To detect ladders

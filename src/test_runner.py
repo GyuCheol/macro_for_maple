@@ -11,14 +11,25 @@ core = MapleCore('StoryMS', 1.0)
 core.add_buff_key('./src/resources/skill/meditation.png', 't', 1.5)
 core.activate_window()
 
+core.add_mob('./src/resources/mob/9420510/1.png')
+
 core.debug_mode = True
 
 
 while True:
-    src, gray = core.get_game_screen()
-    # core.progress()
-    print(core.get_name_location(gray))
-    time.sleep(1)
+    # src, gray = core.get_game_screen()
+    # print(core.get_name_location(gray))
+    # time.sleep(1)
+    core.progress(
+        use_buff=True,
+        use_mob_detect=True,
+        use_medal_detect=True
+        )
+
+    cv2.imshow("Detection", core.lastest_detection_screen)
+    cv2.waitKey(delay=3000)
+
+
 
 # src, gray = core.get_game_screen()
 

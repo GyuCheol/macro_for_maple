@@ -51,6 +51,7 @@ class MapleCore:
     
     def add_mob(self, img):
         self.mob_list.append(cv2.imread(img, 0))
+        self.mob_list.append(cv2.flip(self.mob_list[-1], 1))
 
     def get_game_screen(self):
         img = get_hwnd_screen_buffer(self.hWnd, self.scale)
@@ -70,27 +71,53 @@ class MapleCore:
 
         loc = np.where( res >= threshold)
 
-        return list(zip(*loc[::-1]))
+        return w, h, list(zip(*loc[::-1]))
 
         # cv2.rectangle(src, pt, (pt[0] + w, pt[1] + h), (0, 0,255), 2)
 
-    def progress(self):
+    def indicate_rect(self, src, w, h, loc_list, rgb):
+        
+        for pt in loc_list:
+            cv2.rectangle(src, pt, (pt[0] + w, pt[1] + h), rgb, 2)
+
+
+    def progress(self, use_buff=True, use_mob_detect=True, use_medal_detect=True):
         src, gray = self.get_game_screen()
+        mob_loc_list = []
+        char_loc = []
 
-        for buff in self.buff_key_list:
-            loc = self.get_detected_img(gray, buff[0], 0.7)
+        if use_buff:
+            for buff in self.buff_key_list:
+                w, h, loc_list = self.get_detected_img(gray, buff[0], 0.7)
 
-            if len(loc) == 0:
-                keyboard.press(buff[1])
-                time.sleep(buff[2])
+                if len(loc_list) == 0:
+                    keyboard.press(buff[1])
+                    time.sleep(buff[2])
+                else:
+                    if self.debug_mode:
+                        self.indicate_rect(src, w, h, loc_list, (255, 0, 0))
 
-        if self.debug_mode:
-            pass
+        if use_mob_detect:
+            for mob in self.mob_list:
+                w, h, loc_list = self.get_detected_img(gray, mob, 0.35)
+
+                if loc_list:
+                    mob_loc_list = loc_list
+                    if self.debug_mode:
+                        self.indicate_rect(src, w, h, loc_list, (0, 255, 0))
+        
+        if use_medal_detect:
+            w, h, char_loc = self.get_name_location(gray)
+
+            if char_loc and self.debug_mode:
+                self.indicate_rect(src, w, h, char_loc, (0, 0, 255))
+
+
     
     def move_to_fm(self, gray):
         self.activate_window()
 
-        loc = self.get_detected_img(gray, trade_ui, 0.9)
+        w, h, loc = self.get_detected_img(gray, trade_ui, 0.9)
 
         mouse.move(loc[0][0] + 10, loc[0][1] + 10)
         mouse.click()
@@ -102,12 +129,12 @@ class MapleCore:
     
     def get_name_location(self, gray):
         
-        loc = self.get_detected_img(gray, medal_char, 0.9)
+        w, h, loc = self.get_detected_img(gray, medal_char, 0.9)
 
         if len(loc) == 0:
-            return (0, 0)
+            return w, h, None
             
-        return (loc[0][0], loc[0][1])
+        return w, h, loc
         
 
 
